@@ -1,0 +1,17 @@
+body{
+    color: brown;
+    font-size: 30px;
+
+}
+
+a:hover {
+    color: green;
+}
+
+.float {
+    float: left;
+}
+
+.my_btn{
+    color:yellow;
+}

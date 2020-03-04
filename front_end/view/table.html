@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/front_end/css/style.css">
+    <title>Page 2</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Job</th>
+        </tr>
+        <tr>
+            <td>Mickey</td>
+            <td>33</td>
+            <td>Owner</td>
+        </tr>
+        <tr>
+            <td>Donald</td>
+            <td>45</td>
+            <td>Sailor</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <form action ="/form-data" method="POST" enctype="multipart/form-data" onsubmit="request.onreadystatechange;return false;">
+        <label for = "name">Name:</label><br>
+        <input type="text" id = "name" name = "name"><br>
+        <label for="age">Age:</label><br>
+        <input type="text" id = "age" name = "age">
+        <input type="submit" value="submit">
+    </form>
+    <a href="/">This is a link to page 1!</a>
+    <script src="/front_end/script/script.js"></script>
+</body>
+</html>

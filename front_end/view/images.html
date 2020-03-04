@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Images</title>
+    <link rel="stylesheet" href="/front_end/css/style.css">
+</head>
+<body>
+<h1>These are all of the image files that have been submitted so far:</h1><br>
+
+{{loop}}
+<img src="{{images}}" alt="{{images}}"><br>
+<a href="{{images}}">{{images}}</a><br>
+{{end_loop}}
+
+<a href="/">Home Screen</a>
+</body>
+</html>
