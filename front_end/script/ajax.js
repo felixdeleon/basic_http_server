@@ -1,13 +1,18 @@
-let request = new XMLHttpRequest();
 
-request.onreadystatechange = function(){
-    if (this.readyState === 4 && this.status === 200){
-        document.getElementById("start").innerHTML = this.response;
-    }
+getData = ()=> {
+    let request = new XMLHttpRequest();
 
-};
-request.open("GET", "/data/submissions.txt");
-request.send();
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            document.getElementById("sent").innerHTML = this.response;
+        }
+
+    };
+    request.open("GET", "/data/ajax_file.txt");
+    request.send();
+}
+
+setInterval(getData,300);
 
 sendData = ()=> {
     let post = new XMLHttpRequest();

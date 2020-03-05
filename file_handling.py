@@ -1,5 +1,5 @@
 import os
-
+import json
 
 class ClientInfo:
     def __init__(self, data):
@@ -46,10 +46,15 @@ class ClientInfo:
         elif ".json" in self.path:
             walker = str(data)
             x = walker.find("\\r\\n\\r\\n")
-            walker = walker[x + 8:]
+            y = walker.find("}")
+            walker = walker[x + 8: y + 1]
+            info = json.loads(walker)
 
-
-
+            with open("data/ajax_file.txt", "a") as file:
+                for x in info:
+                    file.write("The contents of " + x + " is: " + info[x]+'\n')
+                file.close()
+            print(walker)
 
 
 def build_html(file, info):
@@ -104,3 +109,4 @@ def response_builder(code, file_type, length):
 def getFileSize(file):
     f = os.stat(file)
     return f.st_size
+
