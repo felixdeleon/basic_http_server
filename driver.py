@@ -131,6 +131,11 @@ while True:
             else:
                 file = open(c.path, "r")
                 contents = file.read()
+                if ".txt" in c.path:
+                    contents = contents.replace("&", "&amp")
+                    contents = contents.replace("<", "&lt")
+                    contents = contents.replace(">", "&gt")
+
             if not image:
                 file_size = len(contents)            # Get the size of the contents of the file
                 message = response_builder(OK, c.path.split(".")[1], file_size)  # Call response_builder to create response

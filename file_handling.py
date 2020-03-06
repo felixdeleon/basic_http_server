@@ -52,7 +52,7 @@ class ClientInfo:
 
             with open("data/ajax_file.txt", "a") as file:
                 for x in info:
-                    file.write("The contents of " + x + " is: " + info[x]+'\n')
+                    file.write("The contents of " + x + " is: " + info[x]+'\r\n')
                 file.close()
             print(walker)
 
