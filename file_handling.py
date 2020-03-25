@@ -1,5 +1,8 @@
 import os
 import json
+import hashlib
+import base64
+
 
 class ClientInfo:
     def __init__(self, data):
@@ -12,6 +15,7 @@ class ClientInfo:
         self.cookies = []  # The cookies that are present for the client
         self.form = []  # The contents of a submitted form
         self.length = 0  # Length of the contents of the form
+        self.web_socket_key = False
         x = ""
 
         x = str(data).find("Cookie")
@@ -30,6 +34,18 @@ class ClientInfo:
             x = x[:end]
             x = x[len("Content-Length:"):]
             self.length = x
+
+        x = str(data).find("Sec-WebSocket-Key:")
+        if x != -1:
+            x = data[x:]
+            end = x.find(b'\r\n')
+            x = x[:end]
+            x = x.replace(b"Sec-WebSocket-Key: ", b"")
+            x += b"258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
+            m = hashlib.sha1()
+            m.update(x)
+            self.web_socket_key = m.hexdigest()
+
         if "POST" in self.request and "jpeg" not in str(data) and ".json" not in self.path:  # If it is a POST request there is more to do
             walker = str(data)
             while "Content-Disposition:" in walker:
@@ -81,7 +97,16 @@ def build_html(file, info):
 
 def response_builder(code, file_type, length):
     response = "HTTP/1.1 "
-    if code == 200:
+
+    if code == 101:
+        response = bytes(response.encode('utf-8'))
+        temp = base64.b64encode(bytes(file_type.encode('utf-8')))
+        response += b"101 Switching Protocols\r\n"
+        response += b"Upgrade: websocket\r\n"
+        response += b"Connection: Upgrade\r\n"
+        response += b"Sec-WebSocket-Accept:" + temp + b"\r\n\r\n"
+        return response
+    elif code == 200:
         response += "200 OK\r\n"
     elif code == 301:
         response += "301 Moved Permanently\r\nLocation: " + file_type + "\r\n\r\n"

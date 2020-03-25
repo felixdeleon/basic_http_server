@@ -1,12 +1,12 @@
 import socket
-from os import listdir
 from file_handling import *
 
 # codes to be used in response builder
 OK = 200
 MOVED = 301
 NOT = 404
-
+SWITCH = 101
+WSC = []
 entries = os.listdir("image")
 for i in range(len(entries)):
     temp = "/image/" + entries[i]
@@ -66,7 +66,7 @@ while True:
         img_form = True
 
     # this makes it easier to access specific data from the user
-    c = ClientInfo(data)
+    c = ClientInfo(raw)
     _id = False
 
     if "id=100" in c.cookies:
@@ -108,7 +108,10 @@ while True:
     elif c.request == "POST":
         print("A form was submitted!")
         out = open(c.path, "a")
-
+    elif c.web_socket_key:
+        if c.web_socket_key not in WSC:
+            WSC.append((c.web_socket_key, (client, addr)))
+        message = response_builder(SWITCH, c.web_socket_key, 0)
     else:
         try:
             image = False
@@ -150,11 +153,12 @@ while True:
             message += file.read()
             file.close()
     # Send message to the client
-    if image:
+    if image or c.web_socket_key:
         client.sendall(message)
     else:
         client.sendall(message.encode('utf-8'))
 
     # Close the connection to the client
+
     client.close()
 

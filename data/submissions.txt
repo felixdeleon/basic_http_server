@@ -6,3 +6,9 @@ For name the value was: xx
 For age the value was: xxxx
 For name the value was: Felix
 For age the value was: yo
+For name the value was: Felix
+For color the value was: Blue
+For name the value was: Felix
+For color the value was: Red
+For name the value was: felix
+For color the value was: Red

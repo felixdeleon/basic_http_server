@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Sockets</title>
+</head>
+<body>
+    <h1>Welcome to websockets!</h1>
+
+    <label for = "name">Name:</label><br>
+    <input type="text" id = "name" name = "name"><br>
+    <label for="color">Favorite Color: </label><br>
+    <select name="color" id="color">
+        <option value="Red">Red</option>
+        <option value="Blue">Blue</option>
+        <option value="Green">Green</option>
+        <option value="Yellow">Yellow</option>
+    </select><br>
+    <button onclick="sendMessage()">send</button>
+    <br>
+
+
+    <script src="/front_end/script/web_socket.js"></script>
+</body>
+</html>
